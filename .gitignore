@@ -1,21 +1,71 @@
-# the composer package lock file and install directory
-# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# Composer dependencies
+/vendor/
+
+# Composer lock file (you might want to track this in some cases)
 # /composer.lock
-/fuel/vendor
 
-# the fuelphp document
-/docs/
+# PHP CS Fixer cache file
+.php_cs.cache
 
-# you may install these packages with `oil package`.
-# http://fuelphp.com/docs/packages/oil/package.html
-# /fuel/packages/auth/
-# /fuel/packages/email/
-# /fuel/packages/oil/
-# /fuel/packages/orm/
-# /fuel/packages/parser/
+# PHPUnit
+.phpunit.result.cache
 
-# dynamically generated files
-/fuel/app/logs/*/*/*
-/fuel/app/cache/*/*
-/fuel/app/config/crypt.php
+# PHP-CS-Fixer
+.php_cs.cache
+
+index.php
+
+# PHPStorm project files
+.idea/
+
+# Visual Studio Code settings
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Linux backup files
+*~
+
+# Local configuration files
+*.local.php
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# Generated files
+*.cache
+*.phar
+
+# gRPC generated files (if you're generating these on the fly)
+# Uncomment if you don't want to track these
+# /GPBMetadata/
+# /Com/
+
+# PHPUnit code coverage reports
+coverage/
+
+# Any other build artifacts or generated files
+/build/
+
+# Ignore all hidden files and directories except .gitignore
+.*
+!.gitignore
+
+# Ignore any compiled PHP files (rare, but just in case)
+*.phpc
