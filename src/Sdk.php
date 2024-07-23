@@ -10,17 +10,14 @@ use Grpc\ServerStreamingCall;
 
 class Sdk
 {
-    private string $apiKey;
+    private Options $opts;
     private StreamClient $client;
 
-    public function __construct(string $apiKey, ?string $overrideHost = null)
+    public function __construct(Options $opts)
     {
-        $this->apiKey = $apiKey;
-        $streamHost = "prod.gateway.databrew.tech:9000";
-        if ($overrideHost != null) {
-            $streamHost = $overrideHost . ":9000";
-        }
-        $this->client = new StreamClient($streamHost, [
+        $this->opts = $opts;
+
+        $this->client = new StreamClient($this->opts->getStreamHost(), [
             'credentials' => ChannelCredentials::createInsecure(),
         ]);
     }
@@ -41,7 +38,37 @@ class Sdk
     private function getMetadata(): array
     {
         return [
-            'x-api-key' => [$this->apiKey]
+            'x-api-key' => [$this->opts->getApiKey()]
         ];
+    }
+
+    public function addStripeConnectedAccounts(int $catalogId, array $accounts)
+    {
+        $apiHost = $this->opts->getApiHost();
+        $apiKey = $this->opts->getApiKey();
+
+        $url = "$apiHost/api/v1/catalogs/rest/stripe/connected-accounts/$catalogId";
+
+        $headers = array(
+            "Accept: application/json",
+            "Content-Type: application/json",
+            "x-databrew-key: $apiKey",
+        );
+
+        $data = new \stdClass();
+        $data->accounts = $accounts;
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_PATCH, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        return $response;
     }
 }

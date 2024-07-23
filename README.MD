@@ -8,7 +8,7 @@ PHP SDK provides a simple way to connect to streaming pipelines to receive payme
 composer install usedatabrew/stream-sdk-php
 ```
 
-## Usage
+## Subscribe to stream
 
 ```php
 <?php
@@ -16,9 +16,37 @@ composer install usedatabrew/stream-sdk-php
 require 'vendor/autoload.php';
 
 use DataBrew\Sdk;
+use DataBrew\Options;
 
-$sdk = new Sdk("api-key");
+$opts = new Options();
+$opts->setApiKey("api-key");
+$opts->setApiHost("api-host");
+$opts->setStreamHost("stream-host");
+
+
+$sdk = new Sdk($opts);
 foreach ($sdk->subscribe("pipelineid")->responses() as $response) {
     echo "Response external PK: " . $response->getExternalPk() . "\n";
 }
+```
+
+## Extend list of connected accounts in case of Stripe Connect usage
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+use DataBrew\Sdk;
+use DataBrew\Options;
+
+$opts = new Options();
+$opts->setApiKey("api-key");
+$opts->setApiHost("api-host");
+$opts->setStreamHost("stream-host");
+
+
+$sdk = new Sdk($opts);
+$response = $sdk->addStripeConnectedAccounts(1, ["test"]);
+var_dump($response);
 ```
