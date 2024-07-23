@@ -21,8 +21,11 @@ class Sdk
         ]);
     }
 
-    public function subscribe(StreamRequest $request): ServerStreamingCall
+    public function subscribe(string $pipelineID): ServerStreamingCall
     {
+        $request = new StreamRequest();
+        $request->setId($pipelineID);
+        $request->setAutoAck(true);
         return $this->client->GetStream($request, $this->getMetadata());
     }
 
