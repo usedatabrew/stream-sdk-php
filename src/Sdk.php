@@ -16,7 +16,11 @@ class Sdk
     public function __construct(string $apiKey, ?string $overrideHost = null)
     {
         $this->apiKey = $apiKey;
-        $this->client = new StreamClient("localhost:9000", [
+        $streamHost = "prod.gateway.databrew.tech:9000";
+        if ($overrideHost != null) {
+            $streamHost = $overrideHost . ":9000";
+        }
+        $this->client = new StreamClient($streamHost, [
             'credentials' => ChannelCredentials::createInsecure(),
         ]);
     }
