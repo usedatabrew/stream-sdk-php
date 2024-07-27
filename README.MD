@@ -20,8 +20,6 @@ use DataBrew\Options;
 
 $opts = new Options();
 $opts->setApiKey("api-key");
-$opts->setApiHost("api-host");
-$opts->setStreamHost("stream-host");
 
 
 $sdk = new Sdk($opts);
@@ -42,11 +40,12 @@ use DataBrew\Options;
 
 $opts = new Options();
 $opts->setApiKey("api-key");
-$opts->setApiHost("api-host");
-$opts->setStreamHost("stream-host");
+
+$catalogId = 1;
+$accounts = ["test"];
 
 
 $sdk = new Sdk($opts);
-$response = $sdk->addStripeConnectedAccounts(1, ["test"]);
+$response = $sdk->addStripeConnectedAccounts($catalogId, $accounts);
 var_dump($response);
 ```
