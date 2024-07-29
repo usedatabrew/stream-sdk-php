@@ -55,7 +55,7 @@ class Sdk
             "x-databrew-key: $apiKey",
         );
 
-        $data = new stdClass();
+        $data = new \stdClass();
         $data->accounts = $accounts;
 
         $curl = curl_init($url);

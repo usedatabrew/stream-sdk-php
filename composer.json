@@ -1,12 +1,14 @@
 {
     "name": "usedatabrew/stream-sdk-php",
     "description": "PHP SDK for DataBrew payment event streaming",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "require": {
         "php": ">=7.4",
         "grpc/grpc": "^1.57",
         "google/protobuf": "^4.27",
-        "ext-grpc": "*"
+        "ext-grpc": "*",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
