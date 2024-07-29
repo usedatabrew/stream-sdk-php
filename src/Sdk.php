@@ -55,16 +55,16 @@ class Sdk
             "x-databrew-key: $apiKey",
         );
 
-        $data = new \stdClass();
+        $data = new stdClass();
         $data->accounts = $accounts;
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_PATCH, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 
         $response = curl_exec($curl);
         curl_close($curl);
